@@ -8,7 +8,6 @@ from __future__ import annotations
 
 import os
 import re
-from typing import List
 
 _TOKEN_RE = re.compile(r"[a-z0-9]+")
 
@@ -20,7 +19,7 @@ def _tokens(text: str) -> set:
 class LexicalReranker:
     model_version = "lexical-v1"
 
-    def score(self, query: str, docs: List[str]) -> List[float]:
+    def score(self, query: str, docs: list[str]) -> list[float]:
         q = _tokens(query)
         if not q:
             return [0.0 for _ in docs]
@@ -45,7 +44,7 @@ class CrossEncoderReranker:
         self._model = CrossEncoder(model_name)
         self.model_version = f"ce-{model_name}"
 
-    def score(self, query: str, docs: List[str]) -> List[float]:
+    def score(self, query: str, docs: list[str]) -> list[float]:
         pairs = [[query, d] for d in docs]
         scores = self._model.predict(pairs)
         return [float(s) for s in scores]
