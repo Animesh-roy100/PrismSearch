@@ -40,7 +40,6 @@ type indexer struct {
 	cache *cache.Cache // used only to bump per-tenant cache generation on write
 	dlq   string
 	prod  *kgo.Client
-	tier  string
 }
 
 func main() {

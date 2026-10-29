@@ -1,6 +1,9 @@
 package cache
 
-import "testing"
+import (
+	"context"
+	"testing"
+)
 
 func TestKeyStableAndFilterOrderIndependent(t *testing.T) {
 	k1 := Key("Hello World", map[string]string{"source": "postgres", "category": "rag"}, 0)
@@ -24,8 +27,8 @@ func TestKeyGenerationInvalidates(t *testing.T) {
 func TestNilCacheIsSafe(t *testing.T) {
 	c := New("", 0) // no redis
 	var out map[string]any
-	if c.Get(nil, "k", &out) {
+	if c.Get(context.TODO(), "k", &out) {
 		t.Fatal("nil-redis cache should always miss")
 	}
-	c.Set(nil, "k", map[string]any{"a": 1}) // must not panic
+	c.Set(context.TODO(), "k", map[string]any{"a": 1}) // must not panic
 }
