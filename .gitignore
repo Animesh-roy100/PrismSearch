@@ -1,14 +1,37 @@
+# Python
 .venv/
+venv/
 __pycache__/
 *.pyc
-.env
-/bin/
-*.log
-.DS_Store
+*.pyo
 .pytest_cache/
+.ruff_cache/
 
-# Compiled Go binaries produced by `go build` in the repo root
+# Secrets / local config
+.env
+.env.local
+*.local
+
+# Go build output & test artifacts
+/bin/
 /loadgen
 /indexer
 /normalizer
 /query
+coverage.out
+coverage.html
+*.test
+*.out
+
+# Logs
+*.log
+
+# OS / editor
+.DS_Store
+.DS_Store?
+._*
+Thumbs.db
+.idea/
+.vscode/
+*.swp
+*~

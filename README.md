@@ -1,5 +1,9 @@
 # Near Real-Time Multi-Source Retrieval + RAG System — v1
 
+[![CI](https://github.com/Animesh-roy100/PrismSearch/actions/workflows/ci.yml/badge.svg)](https://github.com/Animesh-roy100/PrismSearch/actions/workflows/ci.yml)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+[![Go 1.26](https://img.shields.io/badge/Go-1.26-00ADD8?logo=go&logoColor=white)](go.mod)
+
 > A change in a connected source becomes searchable within seconds; hybrid retrieval
 > (BM25 + vector + RRF + rerank) finds the right documents; and an LLM produces a
 > grounded, cited answer with a faithfulness guardrail — freshness, latency, and quality

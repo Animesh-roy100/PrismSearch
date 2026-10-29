@@ -1,5 +1,5 @@
 """Unit tests for the pure metric functions (no live services)."""
-from eval import ndcg_at_k, mrr, recall_at_k, rrf
+from eval import mrr, ndcg_at_k, recall_at_k, rrf
 
 
 def test_ndcg_perfect_vs_bad():

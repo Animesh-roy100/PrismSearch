@@ -4,7 +4,7 @@ import os
 os.environ["EMBED_BACKEND"] = "hash"
 os.environ["RERANK_BACKEND"] = "lexical"
 
-from embedder import HashEmbedder, DIM  # noqa: E402
+from embedder import DIM, HashEmbedder  # noqa: E402
 from reranker import LexicalReranker  # noqa: E402
 
 

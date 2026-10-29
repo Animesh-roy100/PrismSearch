@@ -154,8 +154,14 @@ func main() {
 	}()
 
 	mux := http.NewServeMux()
-	mux.HandleFunc("/search", s.handleSearch)
-	mux.HandleFunc("/ask", s.handleAsk)
+	// Per-client rate limiting + request body size caps protect the public API from
+	// abuse and accidental overload. RATE_RPS<=0 disables limiting (dev/open mode).
+	rl := newRateLimiter(config.Float("RATE_RPS", 20), config.Float("RATE_BURST", 40))
+	limited := func(h http.HandlerFunc) http.HandlerFunc {
+		return rl.middleware(clientKey, limitBody(h))
+	}
+	mux.HandleFunc("/search", limited(s.handleSearch))
+	mux.HandleFunc("/ask", limited(s.handleAsk))
 	mux.HandleFunc("/health", func(w http.ResponseWriter, r *http.Request) {
 		writeJSON(w, http.StatusOK, map[string]string{"status": "ok"})
 	})
@@ -459,6 +465,7 @@ func runHealthcheck(addr string) {
 	if err != nil || resp.StatusCode != http.StatusOK {
 		os.Exit(1)
 	}
+	_ = resp.Body.Close()
 	os.Exit(0)
 }
 

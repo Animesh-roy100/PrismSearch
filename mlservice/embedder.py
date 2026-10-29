@@ -16,13 +16,12 @@ import hashlib
 import math
 import os
 import re
-from typing import List
 
 DIM = 768
 _TOKEN_RE = re.compile(r"[a-z0-9]+")
 
 
-def _tokenize(text: str) -> List[str]:
+def _tokenize(text: str) -> list[str]:
     return _TOKEN_RE.findall(text.lower())
 
 
@@ -32,10 +31,10 @@ class HashEmbedder:
     model_version = "hash-v1"
     dim = DIM
 
-    def embed(self, texts: List[str]) -> List[List[float]]:
+    def embed(self, texts: list[str]) -> list[list[float]]:
         return [self._one(t) for t in texts]
 
-    def _one(self, text: str) -> List[float]:
+    def _one(self, text: str) -> list[float]:
         vec = [0.0] * DIM
         tokens = _tokenize(text)
         # unigrams + bigrams give a little sequence sensitivity
@@ -61,7 +60,7 @@ class SentenceTransformerEmbedder:
         self.model_version = f"st-{model_name}"
         self.dim = self._model.get_sentence_embedding_dimension()
 
-    def embed(self, texts: List[str]) -> List[List[float]]:
+    def embed(self, texts: list[str]) -> list[list[float]]:
         vecs = self._model.encode(texts, normalize_embeddings=True)
         return [v.tolist() for v in vecs]
 

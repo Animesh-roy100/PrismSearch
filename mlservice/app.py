@@ -9,13 +9,11 @@ Endpoints:
 from __future__ import annotations
 
 import os
-from typing import List
 
+from embedder import build_embedder
 from fastapi import FastAPI
 from prometheus_client import Counter, Histogram, make_asgi_app
 from pydantic import BaseModel
-
-from embedder import build_embedder
 from reranker import build_reranker
 
 app = FastAPI(title="ml-service", version="1.0.0")
@@ -55,23 +53,23 @@ _reranker = build_reranker()
 
 
 class EmbedRequest(BaseModel):
-    texts: List[str]
+    texts: list[str]
 
 
 class EmbedResponse(BaseModel):
-    vectors: List[List[float]]
+    vectors: list[list[float]]
     model_version: str
     dim: int
 
 
 class RerankRequest(BaseModel):
     query: str
-    docs: List[str]
+    docs: list[str]
 
 
 class RerankResponse(BaseModel):
-    scores: List[float]
-    order: List[int]
+    scores: list[float]
+    order: list[int]
     model_version: str
 
 
