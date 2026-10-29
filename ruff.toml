@@ -1,0 +1,16 @@
+target-version = "py312"
+line-length = 100
+
+[lint]
+# A pragmatic set: real-error rules (pyflakes/pycodestyle), import sorting (I),
+# modernization (UP), and bugbear (B). Style-only rules stay out so CI stays signal.
+select = ["E", "F", "W", "I", "UP", "B"]
+ignore = [
+  "E402", # module-level import not at top: test files set os.environ before imports
+  "E501", # line length handled by formatter, not enforced as an error
+  "B008", # function call in default arg (FastAPI Depends/Query pattern)
+  "B905", # zip() without strict=: intentional same-length / truncating zips
+]
+
+[lint.per-file-ignores]
+"**/test_*.py" = ["E402"]
