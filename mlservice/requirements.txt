@@ -7,4 +7,4 @@ opentelemetry-exporter-otlp-proto-grpc==1.29.0
 opentelemetry-instrumentation-fastapi==0.50b0
 # Optional real-model backends (image installs them; runtime falls back to hash/lexical
 # if EMBED_BACKEND/RERANK_BACKEND=auto and the model can't load).
-sentence-transformers==3.3.1
+sentence-transformers==6.2.0
